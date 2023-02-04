@@ -6,8 +6,8 @@ set(EXECUTABLE_OUTPUT_PATH ./${CMAKE_BUILD_TYPE})
 
 add_executable(pr3d
     src/main.cpp
-    src/app.hpp
-    src/app.cpp
+    src/appwindow.hpp
+    src/appwindow.cpp
 )
 
 target_include_directories(pr3d

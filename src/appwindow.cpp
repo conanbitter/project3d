@@ -1,12 +1,7 @@
-#include "app.hpp"
+#include "appwindow.hpp"
 #include <iostream>
 
-App& App::getInstance() {
-    static App theInstance;
-    return theInstance;
-}
-
-void App::initSDL(const std::string& title) {
+void AppWindow::initSDL(const std::string& title) {
     SDL_Init(SDL_INIT_VIDEO);
 
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -25,19 +20,15 @@ void App::initSDL(const std::string& title) {
     keyboardState = SDL_GetKeyboardState(nullptr);
 }
 
-void App::init(const std::string title, int width, int height) {
-    if (isInitComplete) return;
-
+AppWindow::AppWindow(const std::string title, int width, int height) {
     windowWidth = width;
     windowHeight = height;
     aspectRatio = (float)windowWidth / (float)windowHeight;
 
     initSDL(title);
-
-    isInitComplete = true;
 }
 
-App::~App() {
+AppWindow::~AppWindow() {
     if (context) {
         SDL_GL_DeleteContext(context);
     }
@@ -47,7 +38,7 @@ App::~App() {
     SDL_Quit();
 }
 
-void App::run() {
+void AppWindow::run() {
     SDL_Event event;
     bool working = true;
     while (working) {
@@ -90,7 +81,7 @@ void App::run() {
     }
 }
 
-bool App::isKeyPressed(int key) {
+bool AppWindow::isKeyPressed(int key) {
     return keyboardState[key];
 }
 
