@@ -1,9 +1,12 @@
 #include "appwindow.hpp"
 #include <iostream>
+#define GLAD_GL_IMPLEMENTATION
+#include <glad/gl.h>
 
 void AppWindow::initSDL(const std::string& title) {
     SDL_Init(SDL_INIT_VIDEO);
 
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
@@ -26,6 +29,12 @@ AppWindow::AppWindow(const std::string title, int width, int height) {
     aspectRatio = (float)windowWidth / (float)windowHeight;
 
     initSDL(title);
+
+    int version = gladLoadGL((GLADloadfunc)SDL_GL_GetProcAddress);
+    std::cout << "OpenGL version " << GLAD_VERSION_MAJOR(version) << "." << GLAD_VERSION_MINOR(version) << std::endl;
+
+    glClearColor(0.27, 0.35, 0.39, 1.0);
+    glViewport(0, 0, windowWidth, windowHeight);
 }
 
 AppWindow::~AppWindow() {
@@ -75,6 +84,8 @@ void AppWindow::run() {
         if (!onUpdate(1.0f)) {
             working = false;
         }
+
+        glClear(GL_COLOR_BUFFER_BIT);
 
         SDL_GL_SwapWindow(window);
         SDL_Delay(5);
