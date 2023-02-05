@@ -3,6 +3,7 @@
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
 #include <string>
+#include "renderer.hpp"
 
 class AppWindow {
    private:
@@ -19,6 +20,8 @@ class AppWindow {
     AppWindow& operator=(const AppWindow&) = delete;
 
    public:
+    Renderer renderer;
+
     AppWindow(const std::string title, int width, int height);
     void run();
     ~AppWindow();

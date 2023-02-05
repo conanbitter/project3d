@@ -8,6 +8,8 @@ add_executable(pr3d
     src/main.cpp
     src/appwindow.hpp
     src/appwindow.cpp
+    src/renderer.hpp
+    src/renderer.cpp
 )
 
 target_include_directories(pr3d

@@ -1,7 +1,5 @@
 #include "appwindow.hpp"
 #include <iostream>
-#define GLAD_GL_IMPLEMENTATION
-#include <glad/gl.h>
 
 void AppWindow::initSDL(const std::string& title) {
     SDL_Init(SDL_INIT_VIDEO);
@@ -30,11 +28,8 @@ AppWindow::AppWindow(const std::string title, int width, int height) {
 
     initSDL(title);
 
-    int version = gladLoadGL((GLADloadfunc)SDL_GL_GetProcAddress);
-    std::cout << "OpenGL version " << GLAD_VERSION_MAJOR(version) << "." << GLAD_VERSION_MINOR(version) << std::endl;
-
-    glClearColor(0.27, 0.35, 0.39, 1.0);
-    glViewport(0, 0, windowWidth, windowHeight);
+    renderer.init(windowWidth, windowHeight);
+    renderer.setClearColor(69, 90, 100);
 }
 
 AppWindow::~AppWindow() {
@@ -85,7 +80,7 @@ void AppWindow::run() {
             working = false;
         }
 
-        glClear(GL_COLOR_BUFFER_BIT);
+        renderer.clear();
 
         SDL_GL_SwapWindow(window);
         SDL_Delay(5);
