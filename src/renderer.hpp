@@ -15,7 +15,7 @@ class Renderer {
 
    public:
     Renderer() = default;
-    ~Renderer() = default;
+    ~Renderer();
     void init(int width, int height);
     void present();
     void setClearColor(uint8_t r, uint8_t g, uint8_t b);
