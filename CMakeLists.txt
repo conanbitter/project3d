@@ -10,6 +10,8 @@ add_executable(pr3d
     src/appwindow.cpp
     src/renderer.hpp
     src/renderer.cpp
+    src/shaders.hpp
+    src/shaders.cpp
 )
 
 target_include_directories(pr3d
