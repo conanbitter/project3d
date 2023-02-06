@@ -3,4 +3,14 @@
 #include <glad/gl.h>
 #include <string>
 
-GLuint compileShaderProgram(const std::string vertexShaderCode, const std::string fragmentShaderCode);
+class Shader {
+   private:
+    GLuint shaderId;
+
+   public:
+    Shader(const std::string vertexShaderCode, const std::string fragmentShaderCode);
+    ~Shader();
+    GLuint getId() { return shaderId; }
+
+    int getUniformId(const std::string name);
+};

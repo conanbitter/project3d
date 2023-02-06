@@ -88,3 +88,17 @@ GLuint compileShaderProgram(const std::string vertexShaderCode, const std::strin
     glDeleteShader(compiledFragmentShader);
     return program;
 };
+
+Shader::Shader(const std::string vertexShaderCode, const std::string fragmentShaderCode) {
+    shaderId = compileShaderProgram(vertexShaderCode, fragmentShaderCode);
+}
+
+Shader::~Shader() {
+    if (glIsProgram(shaderId)) {
+        glDeleteProgram(shaderId);
+    }
+}
+
+int Shader::getUniformId(const std::string name) {
+    return glGetUniformLocation(shaderId, name.c_str());
+}
