@@ -13,6 +13,8 @@ add_executable(pr3d
     src/shaders.hpp
     src/shaders.cpp
     src/geometry.hpp
+    src/mesh.hpp
+    src/mesh.cpp
 )
 
 target_include_directories(pr3d
