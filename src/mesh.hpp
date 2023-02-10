@@ -6,6 +6,8 @@
 #include "renderer.hpp"
 
 class Mesh {
+    friend class Renderer;
+
    private:
     std::vector<Vertex> vertices;
     std::vector<Triangle> faces;

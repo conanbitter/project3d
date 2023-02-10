@@ -11,6 +11,7 @@ class ProjectApp : public AppWindow {
    public:
     ProjectApp();
     ~ProjectApp();
+    void onDraw();
 };
 
 ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) {
@@ -18,6 +19,10 @@ ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) 
 }
 
 ProjectApp::~ProjectApp() {
+}
+
+void ProjectApp::onDraw() {
+    renderer.draw(box);
 }
 
 int main() {

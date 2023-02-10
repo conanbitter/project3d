@@ -82,6 +82,8 @@ void AppWindow::run() {
 
         renderer.clear();
 
+        onDraw();
+
         SDL_GL_SwapWindow(window);
         SDL_Delay(5);
     }

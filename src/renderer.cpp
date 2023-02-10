@@ -23,18 +23,32 @@ void Renderer::init(int width, int height) {
     glEnableVertexAttribArray(VERTEX_POSITION_LOCATION);
     glVertexAttribPointer(VERTEX_POSITION_LOCATION, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), nullptr);
     glEnableVertexAttribArray(VERTEX_NORMAL_LOCATION);
-    glVertexAttribPointer(VERTEX_NORMAL_LOCATION, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)sizeof(Vector3D));
+    glVertexAttribPointer(VERTEX_NORMAL_LOCATION, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void *)sizeof(Vector3D));
     glEnableVertexAttribArray(VERTEX_UV_LOCATION);
-    glVertexAttribPointer(VERTEX_UV_LOCATION, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)(sizeof(Vector3D) * 2));
+    glVertexAttribPointer(VERTEX_UV_LOCATION, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void *)(sizeof(Vector3D) * 2));
+    glGenBuffers(1, &ebo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 }
 
 Renderer::~Renderer() {
+    if (glIsBuffer(ebo)) {
+        glDeleteBuffers(1, &ebo);
+    }
     if (glIsBuffer(vbo)) {
         glDeleteBuffers(1, &vbo);
     }
     if (glIsVertexArray(vao)) {
         glDeleteVertexArrays(1, &vao);
     }
+}
+
+void Renderer::draw(const Mesh &mesh) {
+    glBindVertexArray(vao);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, mesh.vertices.size() * sizeof(Vertex), mesh.vertices.data(), GL_DYNAMIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.faces.size() * sizeof(Triangle), mesh.faces.data(), GL_DYNAMIC_DRAW);
+    glDrawElements(GL_TRIANGLES, mesh.faces.size(), GL_UNSIGNED_INT, NULL);
 }
 
 void Renderer::present() {}
