@@ -8,9 +8,13 @@ class Shader {
     GLuint shaderId;
 
    public:
-    Shader(const std::string vertexShaderCode, const std::string fragmentShaderCode);
+    Shader() {}
+    Shader(const char* vertexShaderCode, const char* fragmentShaderCode);
     ~Shader();
-    GLuint getId() { return shaderId; }
+    GLuint getId() const { return shaderId; }
 
     int getUniformId(const std::string name);
+
+    static void compileAllShaders();
+    static Shader mainShader;
 };

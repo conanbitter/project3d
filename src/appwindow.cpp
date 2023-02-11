@@ -1,4 +1,5 @@
 #include "appwindow.hpp"
+#include "shaders.hpp"
 #include <iostream>
 
 void AppWindow::initSDL(const std::string& title) {
@@ -30,6 +31,8 @@ AppWindow::AppWindow(const std::string title, int width, int height) {
 
     renderer.init(windowWidth, windowHeight);
     renderer.setClearColor(69, 90, 100);
+
+    Shader::compileAllShaders();
 }
 
 AppWindow::~AppWindow() {

@@ -1,5 +1,6 @@
 #include "appwindow.hpp"
 #include "mesh.hpp"
+#include "shaders.hpp"
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
@@ -22,6 +23,7 @@ ProjectApp::~ProjectApp() {
 }
 
 void ProjectApp::onDraw() {
+    renderer.setShader(Shader::mainShader);
     renderer.draw(box);
 }
 

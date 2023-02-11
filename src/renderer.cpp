@@ -60,3 +60,8 @@ void Renderer::setClearColor(uint8_t r, uint8_t g, uint8_t b) {
 void Renderer::clear() {
     glClear(GL_COLOR_BUFFER_BIT);
 }
+
+void Renderer::setShader(const Shader shader) {
+    GLuint id = shader.getId();
+    glUseProgram(shader.getId());
+}

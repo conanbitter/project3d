@@ -1,6 +1,35 @@
 #include "shaders.hpp"
 #include <iostream>
 
+const char* MAIN_SHADER_VERT = R"(
+    #version 330 core
+
+    layout(location = 0) in vec3 vertPos;
+    layout(location = 1) in vec3 vertNorm;
+    layout(location = 2)in vec2 vertUV;
+
+    out vec2 fragUV;
+
+    void main() {
+        gl_Position = vec4(vertPos.x, vertPos.y, vertPos.z, 1.0);
+        fragUV = vertUV;
+    }
+)";
+
+const char* MAIN_SHADER_FRAG = R"(
+    #version 330 core
+
+    in vec2 fragUV;
+
+    out vec4 outputColor;
+
+    void main() {
+        outputColor = vec4(1.0, 1.0, 1.0, 1.0);
+    }
+)";
+
+Shader Shader::mainShader;
+
 std::string getShaderLog(GLuint shader) {
     if (glIsShader(shader)) {
         std::string message = "";
@@ -46,10 +75,10 @@ std::string getProgramLog(GLuint shaderProgram) {
     }
 }
 
-GLuint compileShader(std::string source, GLenum shaderType) {
+GLuint compileShader(const char* source, GLenum shaderType) {
     GLuint shader = glCreateShader(shaderType);
     const GLchar* lines[] = {
-        source.c_str()};
+        source};
     glShaderSource(shader, 1, lines, NULL);
     glCompileShader(shader);
     GLint isCompiled = GL_FALSE;
@@ -69,7 +98,7 @@ GLuint compileShader(std::string source, GLenum shaderType) {
     return shader;
 }
 
-GLuint compileShaderProgram(const std::string vertexShaderCode, const std::string fragmentShaderCode) {
+GLuint compileShaderProgram(const char* vertexShaderCode, const char* fragmentShaderCode) {
     GLuint program = glCreateProgram();
 
     GLuint compiledVertexShader = compileShader(vertexShaderCode, GL_VERTEX_SHADER);
@@ -89,16 +118,21 @@ GLuint compileShaderProgram(const std::string vertexShaderCode, const std::strin
     return program;
 };
 
-Shader::Shader(const std::string vertexShaderCode, const std::string fragmentShaderCode) {
+Shader::Shader(const char* vertexShaderCode, const char* fragmentShaderCode) {
     shaderId = compileShaderProgram(vertexShaderCode, fragmentShaderCode);
 }
 
 Shader::~Shader() {
     if (glIsProgram(shaderId)) {
-        glDeleteProgram(shaderId);
+        // TODO add move semantics
+        //  glDeleteProgram(shaderId);
     }
 }
 
 int Shader::getUniformId(const std::string name) {
     return glGetUniformLocation(shaderId, name.c_str());
+}
+
+void Shader::compileAllShaders() {
+    mainShader = Shader(MAIN_SHADER_VERT, MAIN_SHADER_FRAG);
 }
