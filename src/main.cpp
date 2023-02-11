@@ -16,7 +16,7 @@ class ProjectApp : public AppWindow {
 };
 
 ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) {
-    box = Mesh("..\\..\\assets\\box.mesh");
+    box = Mesh("..\\..\\assets\\pyramid.mesh");
 }
 
 ProjectApp::~ProjectApp() {

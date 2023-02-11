@@ -48,7 +48,7 @@ void Renderer::draw(const Mesh &mesh) {
     glBufferData(GL_ARRAY_BUFFER, mesh.vertices.size() * sizeof(Vertex), mesh.vertices.data(), GL_DYNAMIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.faces.size() * sizeof(Triangle), mesh.faces.data(), GL_DYNAMIC_DRAW);
-    glDrawElements(GL_TRIANGLES, mesh.faces.size(), GL_UNSIGNED_INT, NULL);
+    glDrawElements(GL_TRIANGLES, mesh.faces.size() * 3, GL_UNSIGNED_INT, NULL);
 }
 
 void Renderer::present() {}
