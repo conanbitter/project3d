@@ -23,7 +23,7 @@ class Renderer {
     Renderer() = default;
     ~Renderer();
     void init(int width, int height);
-    void setShader(const Shader shader);
+    void setShader(const Shader& shader);
     void draw(const Mesh& mesh);
     void present();
     void setClearColor(uint8_t r, uint8_t g, uint8_t b);

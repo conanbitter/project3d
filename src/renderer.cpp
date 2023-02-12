@@ -61,7 +61,6 @@ void Renderer::clear() {
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Renderer::setShader(const Shader shader) {
-    GLuint id = shader.getId();
+void Renderer::setShader(const Shader &shader) {
     glUseProgram(shader.getId());
 }

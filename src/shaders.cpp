@@ -124,8 +124,7 @@ Shader::Shader(const char* vertexShaderCode, const char* fragmentShaderCode) {
 
 Shader::~Shader() {
     if (glIsProgram(shaderId)) {
-        // TODO add move semantics
-        //  glDeleteProgram(shaderId);
+        glDeleteProgram(shaderId);
     }
 }
 
