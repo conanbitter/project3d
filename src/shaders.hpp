@@ -11,7 +11,6 @@ class Shader {
     const GLuint INVALID_SHADER = 0;
 
     Shader() : shaderId(INVALID_SHADER) {}
-    Shader(const char* vertexShaderCode, const char* fragmentShaderCode);
     Shader(const Shader& other) = delete;
     Shader(Shader&& other) noexcept {
         shaderId = other.shaderId;
@@ -24,6 +23,9 @@ class Shader {
         return *this;
     }
     ~Shader();
+
+    void LoadFromString(const char* vertexShaderCode, const char* fragmentShaderCode);
+    void LoadFromFile(const char* vertexShaderFile, const char* fragmentShaderFile);
     GLuint getId() const { return shaderId; }
 
     int getUniformId(const std::string name);

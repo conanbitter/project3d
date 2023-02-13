@@ -1,32 +1,6 @@
 #include "shaders.hpp"
 #include <iostream>
-
-const char* MAIN_SHADER_VERT = R"(
-    #version 330 core
-
-    layout(location = 0) in vec3 vertPos;
-    layout(location = 1) in vec3 vertNorm;
-    layout(location = 2)in vec2 vertUV;
-
-    out vec2 fragUV;
-
-    void main() {
-        gl_Position = vec4(vertPos.x, vertPos.y, vertPos.z, 1.0);
-        fragUV = vertUV;
-    }
-)";
-
-const char* MAIN_SHADER_FRAG = R"(
-    #version 330 core
-
-    in vec2 fragUV;
-
-    out vec4 outputColor;
-
-    void main() {
-        outputColor = vec4(1.0, 1.0, 1.0, 1.0);
-    }
-)";
+#include <fstream>
 
 Shader Shader::mainShader;
 
@@ -118,8 +92,28 @@ GLuint compileShaderProgram(const char* vertexShaderCode, const char* fragmentSh
     return program;
 };
 
-Shader::Shader(const char* vertexShaderCode, const char* fragmentShaderCode) {
+char* readFile(const char* filename) {
+    std::ifstream file(filename, std::ios::in | std::ios::binary);
+    file.seekg(0, std::ios::end);
+    size_t size = file.tellg();
+    file.seekg(0, std::ios::beg);
+    char* result = new char[size + 1];
+    file.read(result, size);
+    file.close();
+    result[size] = '\0';
+    return result;
+}
+
+void Shader::LoadFromString(const char* vertexShaderCode, const char* fragmentShaderCode) {
     shaderId = compileShaderProgram(vertexShaderCode, fragmentShaderCode);
+}
+
+void Shader::LoadFromFile(const char* vertexShaderFile, const char* fragmentShaderFile) {
+    char* vertCode = readFile(vertexShaderFile);
+    char* fragCode = readFile(fragmentShaderFile);
+    shaderId = compileShaderProgram(vertCode, fragCode);
+    delete fragCode;
+    delete vertCode;
 }
 
 Shader::~Shader() {
@@ -133,5 +127,5 @@ int Shader::getUniformId(const std::string name) {
 }
 
 void Shader::compileAllShaders() {
-    mainShader = Shader(MAIN_SHADER_VERT, MAIN_SHADER_FRAG);
+    mainShader.LoadFromFile("..\\..\\assets\\main.vert", "..\\..\\assets\\main.frag");
 }
