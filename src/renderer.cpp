@@ -14,6 +14,7 @@ void Renderer::init(int width, int height) {
     std::cout << "OpenGL version " << GLAD_VERSION_MAJOR(version) << "." << GLAD_VERSION_MINOR(version) << std::endl;
 
     glViewport(0, 0, width, height);
+    glEnable(GL_DEPTH_TEST);
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     glGenVertexArrays(1, &vao);
@@ -58,7 +59,7 @@ void Renderer::setClearColor(uint8_t r, uint8_t g, uint8_t b) {
 }
 
 void Renderer::clear() {
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Renderer::setShader(const Shader &shader) {
