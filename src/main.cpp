@@ -19,9 +19,9 @@ class ProjectApp : public AppWindow {
 };
 
 ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) {
-    box = Mesh("..\\..\\assets\\box.mesh");
-    glm::mat4 Projection = glm::perspective(glm::pi<float>() * 0.25f, 16.0f / 9.0f, 0.1f, 100.f);
-    glm::mat4 View = glm::lookAt(glm::vec3(7.3, 4.9, -6.9), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+    box = Mesh("..\\..\\assets\\monkey.mesh");
+    glm::mat4 Projection = glm::perspective(glm::pi<float>() * 0.15f, 16.0f / 9.0f, 0.1f, 100.f);
+    glm::mat4 View = glm::lookAt(glm::vec3(7.3, 4.9, 6.9), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
     mvp = Projection * View;
     Shader::mainShader.updateMVP(mvp);
 }
