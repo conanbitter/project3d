@@ -107,6 +107,7 @@ char* readFile(const char* filename) {
 
 void Shader::LoadFromString(const char* vertexShaderCode, const char* fragmentShaderCode) {
     shaderId = compileShaderProgram(vertexShaderCode, fragmentShaderCode);
+    mvp = glGetUniformLocation(shaderId, "mvp");
 }
 
 void Shader::LoadFromFile(const char* vertexShaderFile, const char* fragmentShaderFile) {
@@ -130,6 +131,13 @@ int Shader::getUniformId(const std::string name) {
 void Shader::updateUniformMat(int id, const glm::mat4x4& matrix) {
     glUseProgram(shaderId);
     glUniformMatrix4fv(id, 1, GL_FALSE, glm::value_ptr(matrix));
+}
+
+void Shader::updateMVP(const glm::mat4x4& matrix) {
+    if (mvp >= 0) {
+        glUseProgram(shaderId);
+        glUniformMatrix4fv(mvp, 1, GL_FALSE, glm::value_ptr(matrix));
+    }
 }
 
 void Shader::compileAllShaders() {

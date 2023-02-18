@@ -7,6 +7,7 @@
 class Shader {
    private:
     GLuint shaderId;
+    GLuint mvp;
 
    public:
     const GLuint INVALID_SHADER = 0;
@@ -31,6 +32,8 @@ class Shader {
 
     int getUniformId(const std::string name);
     void updateUniformMat(int id, const glm::mat4x4& matrix);
+    bool hasMVP() { return mvp >= 0; }
+    void updateMVP(const glm::mat4x4& matrix);
 
     static void compileAllShaders();
     static Shader mainShader;
