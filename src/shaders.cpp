@@ -1,6 +1,7 @@
 #include "shaders.hpp"
 #include <iostream>
 #include <fstream>
+#include <glm/gtc/type_ptr.hpp>
 
 Shader Shader::mainShader;
 
@@ -124,6 +125,11 @@ Shader::~Shader() {
 
 int Shader::getUniformId(const std::string name) {
     return glGetUniformLocation(shaderId, name.c_str());
+}
+
+void Shader::updateUniformMat(int id, const glm::mat4x4& matrix) {
+    glUseProgram(shaderId);
+    glUniformMatrix4fv(id, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 void Shader::compileAllShaders() {

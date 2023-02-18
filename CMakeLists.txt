@@ -21,6 +21,7 @@ target_include_directories(pr3d
     PUBLIC
         D:/Projects_C/Libs/sdl2vc/include
         D:/Projects_C/Libs/glad/include
+        D:/Projects_C/Libs/glm
 )
 
 target_link_directories(pr3d

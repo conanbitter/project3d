@@ -2,6 +2,7 @@
 
 #include <glad/gl.h>
 #include <string>
+#include <glm/glm.hpp>
 
 class Shader {
    private:
@@ -29,6 +30,7 @@ class Shader {
     GLuint getId() const { return shaderId; }
 
     int getUniformId(const std::string name);
+    void updateUniformMat(int id, const glm::mat4x4& matrix);
 
     static void compileAllShaders();
     static Shader mainShader;
