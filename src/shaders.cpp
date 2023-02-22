@@ -1,4 +1,5 @@
 #include "shaders.hpp"
+#include "textures.hpp"
 #include <iostream>
 #include <fstream>
 #include <glm/gtc/type_ptr.hpp>
@@ -107,13 +108,20 @@ char* readFile(const char* filename) {
 
 void Shader::LoadFromString(const char* vertexShaderCode, const char* fragmentShaderCode) {
     shaderId = compileShaderProgram(vertexShaderCode, fragmentShaderCode);
+    glUseProgram(shaderId);
     mvp = glGetUniformLocation(shaderId, "mvp");
+    GLint diffMap = glGetUniformLocation(shaderId, "diffuse");
+    std::cout << mvp << " " << diffMap << std::endl;
+    if (diffMap >= 0) {
+        glUniform1i(diffMap, Texture::DiffuseMap - GL_TEXTURE0);
+        std::cout << "set" << std::endl;
+    }
 }
 
 void Shader::LoadFromFile(const char* vertexShaderFile, const char* fragmentShaderFile) {
     char* vertCode = readFile(vertexShaderFile);
     char* fragCode = readFile(fragmentShaderFile);
-    shaderId = compileShaderProgram(vertCode, fragCode);
+    LoadFromString(vertCode, fragCode);
     delete fragCode;
     delete vertCode;
 }

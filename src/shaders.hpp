@@ -7,7 +7,7 @@
 class Shader {
    private:
     GLuint shaderId;
-    GLuint mvp;
+    GLint mvp;
 
    public:
     const GLuint INVALID_SHADER = 0;

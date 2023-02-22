@@ -10,8 +10,8 @@ class Texture {
     GLuint handle;
 
    public:
-    const GLenum LoadMap = GL_TEXTURE5;
-    const GLenum DiffuseMap = GL_TEXTURE0;
+    static const GLenum LoadMap = GL_TEXTURE5;
+    static const GLenum DiffuseMap = GL_TEXTURE0;
 
     Texture() : width{0}, height{0} {};
     ~Texture();
