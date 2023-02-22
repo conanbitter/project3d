@@ -20,6 +20,9 @@ class Shader {
     }
     Shader& operator=(const Shader& other) = delete;
     Shader& operator=(Shader&& other) noexcept {
+        if (glIsProgram(shaderId)) {
+            glDeleteProgram(shaderId);
+        }
         shaderId = other.shaderId;
         other.shaderId = INVALID_SHADER;
         return *this;
