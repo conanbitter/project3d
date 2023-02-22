@@ -12,6 +12,7 @@ class Texture {
    public:
     static const GLenum LoadMap = GL_TEXTURE5;
     static const GLenum DiffuseMap = GL_TEXTURE0;
+    static const GLenum NormalMap = GL_TEXTURE1;
 
     Texture() : width{0}, height{0} {};
     ~Texture();

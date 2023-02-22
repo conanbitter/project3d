@@ -12,6 +12,7 @@ class ProjectApp : public AppWindow {
    private:
     Mesh box;
     Texture tex;
+    Texture norm;
     glm::mat4x4 mvp;
 
    public:
@@ -21,8 +22,9 @@ class ProjectApp : public AppWindow {
 };
 
 ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) {
-    box = Mesh("..\\..\\assets\\box.mesh");
-    tex.load("..\\..\\assets\\box_diff.png");
+    box = Mesh("..\\..\\assets\\monkey.mesh");
+    tex.load("..\\..\\assets\\monkey_diff.jpg");
+    norm.load("..\\..\\assets\\monkey_normal.png");
     glm::mat4 Projection = glm::perspective(glm::pi<float>() * 0.15f, 16.0f / 9.0f, 0.1f, 100.f);
     glm::mat4 View = glm::lookAt(glm::vec3(7.3, 4.9, 6.9), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
     mvp = Projection * View;
@@ -35,6 +37,7 @@ ProjectApp::~ProjectApp() {
 void ProjectApp::onDraw() {
     renderer.setShader(Shader::mainShader);
     tex.bind(Texture::DiffuseMap);
+    norm.bind(Texture::NormalMap);
     renderer.draw(box);
 }
 
