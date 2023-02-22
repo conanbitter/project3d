@@ -15,6 +15,8 @@ add_executable(pr3d
     src/geometry.hpp
     src/mesh.hpp
     src/mesh.cpp
+    src/textures.hpp
+    src/textures.cpp
 )
 
 target_include_directories(pr3d
@@ -22,6 +24,7 @@ target_include_directories(pr3d
         D:/Projects_C/Libs/sdl2vc/include
         D:/Projects_C/Libs/glad/include
         D:/Projects_C/Libs/glm
+        D:/Projects_C/Libs/stb
 )
 
 target_link_directories(pr3d
