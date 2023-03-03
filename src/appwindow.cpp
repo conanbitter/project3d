@@ -96,6 +96,7 @@ bool AppWindow::isKeyPressed(int key) {
     return keyboardState[key];
 }
 
-int getKeyCode(const std::string name) {
-    return SDL_GetKeyFromName(name.c_str());
+int AppWindow::getKeyCode(const std::string name) {
+    // return SDL_GetKeyFromName(name.c_str());
+    return SDL_GetScancodeFromName(name.c_str());
 }

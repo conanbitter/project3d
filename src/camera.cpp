@@ -18,10 +18,10 @@ FlyCamera::FlyCamera() {
 }
 
 void FlyCamera::updateProj() {
-    view = glm::lookAt(position, position + forward, up);
+    projection = glm::perspective(glm::radians(fov), ar, 0.1f, 100.0f);
 }
 void FlyCamera::updateView() {
-    projection = glm::perspective(glm::radians(fov), ar, 0.1f, 100.0f);
+    view = glm::lookAt(position, position + forward, up);
 }
 
 void FlyCamera::updateVectors() {
@@ -36,7 +36,7 @@ void FlyCamera::updateVectors() {
         cos(yaw) * cos(pitch),
         sin(pitch),
         sin(yaw) * cos(pitch)));
-    right = glm::normalize(glm::cross(up, forward));
+    right = glm::normalize(glm::cross(forward, up));
 }
 
 void FlyCamera::setPosition(const glm::vec3 &newPosition) {
