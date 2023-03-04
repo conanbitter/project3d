@@ -13,6 +13,7 @@ class AppWindow {
     SDL_Window* window;
     SDL_GLContext context;
     const Uint8* keyboardState;
+    bool working;
 
     void initSDL(const std::string& title);
 
@@ -28,10 +29,13 @@ class AppWindow {
 
     bool isKeyPressed(int key);
     int getKeyCode(const std::string name);
+    void requestExit() { working = false; }
+    void setStickyMouse(bool enabled);
+    void setTitle(std::string title);
 
     virtual void onLoad() {}
     virtual void onUnload() {}
-    virtual bool onUpdate(float deltaTime) { return true; }
+    virtual void onUpdate(float deltaTime) {}
     virtual void onDraw() {}
 
     virtual void onMouseMove(int32_t dx, int32_t dy) {}

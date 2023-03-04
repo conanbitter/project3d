@@ -47,7 +47,7 @@ AppWindow::~AppWindow() {
 
 void AppWindow::run() {
     SDL_Event event;
-    bool working = true;
+    working = true;
     while (working) {
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
@@ -78,10 +78,7 @@ void AppWindow::run() {
                     break;
             }
         }
-
-        if (!onUpdate(1.0f)) {
-            working = false;
-        }
+        onUpdate(1.0f);
 
         renderer.clear();
 
@@ -99,4 +96,12 @@ bool AppWindow::isKeyPressed(int key) {
 int AppWindow::getKeyCode(const std::string name) {
     // return SDL_GetKeyFromName(name.c_str());
     return SDL_GetScancodeFromName(name.c_str());
+}
+
+void AppWindow::setStickyMouse(bool enabled) {
+    SDL_SetRelativeMouseMode(enabled ? SDL_TRUE : SDL_FALSE);
+}
+
+void AppWindow::setTitle(std::string title) {
+    SDL_SetWindowTitle(window, title.c_str());
 }

@@ -11,6 +11,7 @@
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 const float MOVE_SPEED = 0.1f;
+const float MOUSE_SENCE = 0.004f;
 
 class ProjectApp : public AppWindow {
    private:
@@ -29,12 +30,15 @@ class ProjectApp : public AppWindow {
     int keyUp;
     int keyDown;
     int keyEsc;
+    int keyReset;
 
    public:
     ProjectApp();
     ~ProjectApp();
     void onDraw();
-    bool onUpdate(float deltaTime);
+    void onUpdate(float deltaTime);
+    void onKeyPressed(int key);
+    void onMouseMove(int32_t dx, int32_t dy);
 };
 
 ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) {
@@ -56,7 +60,8 @@ ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) 
     keyRight = getKeyCode("D");
     keyUp = getKeyCode("E");
     keyDown = getKeyCode("Q");
-    keyEsc = getKeyCode("Esc");
+    keyEsc = getKeyCode("Escape");
+    keyReset = getKeyCode("R");
 }
 
 ProjectApp::~ProjectApp() {
@@ -69,45 +74,70 @@ void ProjectApp::onDraw() {
     renderer.draw(box);
 }
 
-bool ProjectApp::onUpdate(float deltaTime) {
+void ProjectApp::onUpdate(float deltaTime) {
     bool cameraMoved = false;
     glm::vec2 direction(0.0f, 0.0f);
     float vert = 0.0f;
 
-    if (isKeyPressed(keyLeft)) {
-        direction.x -= 1.0;
-        cameraMoved = true;
-    }
-    if (isKeyPressed(keyRight)) {
-        direction.x += 1.0;
-        cameraMoved = true;
-    }
-    if (isKeyPressed(keyForw)) {
-        direction.y += 1.0;
-        cameraMoved = true;
-    }
-    if (isKeyPressed(keyBack)) {
-        direction.y -= 1.0;
-        cameraMoved = true;
-    }
-    if (isKeyPressed(keyUp)) {
-        vert += MOVE_SPEED;
-        cameraMoved = true;
-    }
-    if (isKeyPressed(keyDown)) {
-        vert -= MOVE_SPEED;
-        cameraMoved = true;
-    }
-
-    if (cameraMoved) {
-        if (glm::length(direction) >= glm::epsilon<float>()) {
-            direction = glm::normalize(direction) * MOVE_SPEED;
+    if (flyMode) {
+        if (isKeyPressed(keyLeft)) {
+            direction.x -= 1.0;
+            cameraMoved = true;
         }
-        camera.move(direction.y, direction.x, vert);
+        if (isKeyPressed(keyRight)) {
+            direction.x += 1.0;
+            cameraMoved = true;
+        }
+        if (isKeyPressed(keyForw)) {
+            direction.y += 1.0;
+            cameraMoved = true;
+        }
+        if (isKeyPressed(keyBack)) {
+            direction.y -= 1.0;
+            cameraMoved = true;
+        }
+        if (isKeyPressed(keyUp)) {
+            vert += MOVE_SPEED;
+            cameraMoved = true;
+        }
+        if (isKeyPressed(keyDown)) {
+            vert -= MOVE_SPEED;
+            cameraMoved = true;
+        }
+
+        if (cameraMoved) {
+            if (glm::length(direction) >= glm::epsilon<float>()) {
+                direction = glm::normalize(direction) * MOVE_SPEED;
+            }
+            camera.move(direction.y, direction.x, vert);
+            Shader::mainShader.updateMVP(camera.getProjection() * camera.getView());
+        }
+    }
+}
+
+void ProjectApp::onKeyPressed(int key) {
+    if (key == keyEsc) {
+        requestExit();
+        return;
+    }
+    if (key == keyFlight) {
+        flyMode = !flyMode;
+        setStickyMouse(flyMode);
+        setTitle(flyMode ? "Project 3D [Fly mode]" : "Project 3D");
+        return;
+    }
+    if (key == keyReset) {
+        camera.setPosition(3.5, 2.3, 3.3);
+        camera.setRotation(3.9, -0.45);
         Shader::mainShader.updateMVP(camera.getProjection() * camera.getView());
     }
+}
 
-    return true;
+void ProjectApp::onMouseMove(int32_t dx, int32_t dy) {
+    if (flyMode) {
+        camera.rotate((float)dx * MOUSE_SENCE, -(float)dy * MOUSE_SENCE);
+        Shader::mainShader.updateMVP(camera.getProjection() * camera.getView());
+    }
 }
 
 int main() {
