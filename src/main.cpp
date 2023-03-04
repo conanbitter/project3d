@@ -20,6 +20,8 @@ class ProjectApp : public AppWindow {
     Texture norm;
     FlyCamera camera;
     glm::mat4x4 mvp;
+    glm::mat4x4 model;
+    glm::mat3x3 normalMat;
 
     bool flyMode = false;
     int keyFlight;
@@ -60,6 +62,16 @@ ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) 
     keyDown = getKeyCode("Left Shift");
     keyEsc = getKeyCode("Escape");
     keyReset = getKeyCode("R");
+
+    Shader::mainShader.updateVec3("materialColor", glm::vec3(0.62f, 0.66f, 0.85f));
+    Shader::mainShader.updateVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+    Shader::mainShader.updateVec3("lightPosition", glm::vec3(-2.86, 2.7, 2.7));
+    Shader::mainShader.updateFloat("ambientStregth", 0.15f);
+    Shader::mainShader.updateFloat("specularStrength", 0.5f);
+
+    renderer.setClearColor(0, 0, 0);
+    model = glm::mat4(1.0f);
+    model = glm::rotate(model, 1.0f, glm::vec3(0.0f, 1.0f, 0.0f));  // glm::scale(model, glm::vec3(1.0, 2.0, 0.5));
 }
 
 ProjectApp::~ProjectApp() {
@@ -69,7 +81,14 @@ void ProjectApp::onDraw() {
     renderer.setShader(Shader::mainShader);
     tex.bind(Texture::DiffuseMap);
     norm.bind(Texture::NormalMap);
-    Shader::mainShader.updateMVP(camera.getProjection() * camera.getView());
+
+    normalMat = glm::mat3x3(glm::transpose(glm::inverse(model)));
+
+    Shader::mainShader.updateMVP(camera.getProjection() * camera.getView() * model);
+    Shader::mainShader.updateMat4("model", model);
+    Shader::mainShader.updateVec3("eyePosition", camera.getPosition());
+    Shader::mainShader.updateMat3("normalMat", normalMat);
+
     renderer.draw(box);
 }
 

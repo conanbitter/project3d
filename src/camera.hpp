@@ -31,6 +31,7 @@ class FlyCamera {
 
     void setPosition(const glm::vec3 &newPosition);
     void setPosition(float x, float y, float z);
+    glm::vec3 getPosition() { return position; }
     void move(float dForw, float dRight, float dUp);
 
     void setRotation(float hor, float vert);

@@ -38,6 +38,7 @@ class Shader {
     bool hasMVP() { return mvp >= 0; }
     void updateMVP(const glm::mat4x4& matrix);
     void updateMat4(const std::string name, const glm::mat4x4& data);
+    void updateMat3(const std::string name, const glm::mat3x3& data);
     void updateVec3(const std::string name, const glm::vec3& data);
     void updateFloat(const std::string name, float data);
 
