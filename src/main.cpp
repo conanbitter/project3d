@@ -22,6 +22,8 @@ class ProjectApp : public AppWindow {
     glm::mat4x4 mvp;
     glm::mat4x4 model;
     glm::mat3x3 normalMat;
+    float lightAngle = 0.0f;
+    float lightRadius = 3.93f;
 
     bool flyMode = false;
     int keyFlight;
@@ -65,13 +67,13 @@ ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) 
 
     Shader::mainShader.updateVec3("materialColor", glm::vec3(0.62f, 0.66f, 0.85f));
     Shader::mainShader.updateVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
-    Shader::mainShader.updateVec3("lightPosition", glm::vec3(-2.86, 2.7, 2.7));
+    Shader::mainShader.updateVec3("lightPosition", glm::vec3(sin(lightAngle) * lightRadius, 2.7, cos(lightAngle) * lightRadius));
     Shader::mainShader.updateFloat("ambientStregth", 0.15f);
     Shader::mainShader.updateFloat("specularStrength", 0.5f);
 
     renderer.setClearColor(0, 0, 0);
     model = glm::mat4(1.0f);
-    model = glm::rotate(model, 1.0f, glm::vec3(0.0f, 1.0f, 0.0f));  // glm::scale(model, glm::vec3(1.0, 2.0, 0.5));
+    // model = glm::rotate(model, 1.0f, glm::vec3(0.0f, 1.0f, 0.0f));  // glm::scale(model, glm::vec3(1.0, 2.0, 0.5));
 }
 
 ProjectApp::~ProjectApp() {
@@ -130,6 +132,12 @@ void ProjectApp::onUpdate(float deltaTime) {
             camera.move(direction.y, direction.x, vert);
         }
     }
+
+    lightAngle += 0.01f;
+    if (lightAngle > 6.28) {
+        lightAngle -= 6.28;
+    }
+    Shader::mainShader.updateVec3("lightPosition", glm::vec3(sin(lightAngle) * lightRadius, 2.7, cos(lightAngle) * lightRadius));
 }
 
 void ProjectApp::onKeyPressed(int key) {
