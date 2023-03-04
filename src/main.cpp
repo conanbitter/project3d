@@ -58,8 +58,8 @@ ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) 
     keyBack = getKeyCode("S");
     keyLeft = getKeyCode("A");
     keyRight = getKeyCode("D");
-    keyUp = getKeyCode("E");
-    keyDown = getKeyCode("Q");
+    keyUp = getKeyCode("Space");
+    keyDown = getKeyCode("Left Shift");
     keyEsc = getKeyCode("Escape");
     keyReset = getKeyCode("R");
 }
