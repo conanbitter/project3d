@@ -50,8 +50,6 @@ ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) 
     camera.setAspectRatio(16.0f / 9.0f);
     camera.setPosition(3.5, 2.3, 3.3);
     camera.setRotation(3.9, -0.45);
-    mvp = camera.getProjection() * camera.getView();
-    Shader::mainShader.updateMVP(mvp);
 
     keyFlight = getKeyCode("F");
     keyForw = getKeyCode("W");
@@ -71,6 +69,7 @@ void ProjectApp::onDraw() {
     renderer.setShader(Shader::mainShader);
     tex.bind(Texture::DiffuseMap);
     norm.bind(Texture::NormalMap);
+    Shader::mainShader.updateMVP(camera.getProjection() * camera.getView());
     renderer.draw(box);
 }
 
@@ -110,7 +109,6 @@ void ProjectApp::onUpdate(float deltaTime) {
                 direction = glm::normalize(direction) * MOVE_SPEED;
             }
             camera.move(direction.y, direction.x, vert);
-            Shader::mainShader.updateMVP(camera.getProjection() * camera.getView());
         }
     }
 }
@@ -129,14 +127,12 @@ void ProjectApp::onKeyPressed(int key) {
     if (key == keyReset) {
         camera.setPosition(3.5, 2.3, 3.3);
         camera.setRotation(3.9, -0.45);
-        Shader::mainShader.updateMVP(camera.getProjection() * camera.getView());
     }
 }
 
 void ProjectApp::onMouseMove(int32_t dx, int32_t dy) {
     if (flyMode) {
         camera.rotate((float)dx * MOUSE_SENCE, -(float)dy * MOUSE_SENCE);
-        Shader::mainShader.updateMVP(camera.getProjection() * camera.getView());
     }
 }
 

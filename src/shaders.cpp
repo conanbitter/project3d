@@ -153,6 +153,21 @@ void Shader::updateMVP(const glm::mat4x4& matrix) {
     }
 }
 
+void Shader::updateMat4(const std::string name, const glm::mat4x4& data) {
+    glUseProgram(shaderId);
+    glUniformMatrix4fv(glGetUniformLocation(shaderId, name.c_str()), 1, GL_FALSE, glm::value_ptr(data));
+}
+
+void Shader::updateVec3(const std::string name, const glm::vec3& data) {
+    glUseProgram(shaderId);
+    glUniform3fv(glGetUniformLocation(shaderId, name.c_str()), 1, glm::value_ptr(data));
+}
+
+void Shader::updateFloat(const std::string name, float data) {
+    glUseProgram(shaderId);
+    glUniform1f(glGetUniformLocation(shaderId, name.c_str()), data);
+}
+
 void Shader::compileAllShaders() {
     mainShader.LoadFromFile("..\\..\\assets\\main.vert", "..\\..\\assets\\main.frag");
 }
