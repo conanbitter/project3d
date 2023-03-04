@@ -6,6 +6,7 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include <glm/gtc/epsilon.hpp>
+#include <iostream>
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
@@ -27,6 +28,7 @@ class ProjectApp : public AppWindow {
     int keyRight;
     int keyUp;
     int keyDown;
+    int keyEsc;
 
    public:
     ProjectApp();
@@ -54,6 +56,7 @@ ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) 
     keyRight = getKeyCode("D");
     keyUp = getKeyCode("E");
     keyDown = getKeyCode("Q");
+    keyEsc = getKeyCode("Esc");
 }
 
 ProjectApp::~ProjectApp() {
@@ -67,46 +70,40 @@ void ProjectApp::onDraw() {
 }
 
 bool ProjectApp::onUpdate(float deltaTime) {
-    bool cameraMovedHor = false;
-    bool cameraMovedVert = false;
+    bool cameraMoved = false;
     glm::vec2 direction(0.0f, 0.0f);
     float vert = 0.0f;
 
     if (isKeyPressed(keyLeft)) {
         direction.x -= 1.0;
-        cameraMovedHor = true;
+        cameraMoved = true;
     }
     if (isKeyPressed(keyRight)) {
         direction.x += 1.0;
-        cameraMovedHor = true;
+        cameraMoved = true;
     }
     if (isKeyPressed(keyForw)) {
         direction.y += 1.0;
-        cameraMovedHor = true;
+        cameraMoved = true;
     }
     if (isKeyPressed(keyBack)) {
         direction.y -= 1.0;
-        cameraMovedHor = true;
+        cameraMoved = true;
     }
     if (isKeyPressed(keyUp)) {
         vert += MOVE_SPEED;
-        cameraMovedVert = true;
+        cameraMoved = true;
     }
     if (isKeyPressed(keyDown)) {
         vert -= MOVE_SPEED;
-        cameraMovedVert = true;
+        cameraMoved = true;
     }
 
-    if (cameraMovedHor) {
-        if (glm::epsilonNotEqual(direction, glm::vec2(0.0f, 0.0f), glm::epsilon<glm::vec2>())) {
+    if (cameraMoved) {
+        if (glm::length(direction) >= glm::epsilon<float>()) {
             direction = glm::normalize(direction) * MOVE_SPEED;
-            camera.move(direction.y, direction.x, 0.0f);
         }
-    }
-    if (cameraMovedVert) {
-        camera.move(0.0f, 0.0f, vert);
-    }
-    if (cameraMovedHor || cameraMovedVert) {
+        camera.move(direction.y, direction.x, vert);
         Shader::mainShader.updateMVP(camera.getProjection() * camera.getView());
     }
 
