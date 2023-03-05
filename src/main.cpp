@@ -65,11 +65,11 @@ ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) 
     keyEsc = getKeyCode("Escape");
     keyReset = getKeyCode("R");
 
-    Shader::mainShader.updateVec3("materialColor", glm::vec3(0.62f, 0.66f, 0.85f));
-    Shader::mainShader.updateVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
-    Shader::mainShader.updateVec3("lightPosition", glm::vec3(sin(lightAngle) * lightRadius, 2.7, cos(lightAngle) * lightRadius));
-    Shader::mainShader.updateFloat("ambientStregth", 0.15f);
-    Shader::mainShader.updateFloat("specularStrength", 0.5f);
+    Shader::mainShader.setUniform("materialColor", glm::vec3(0.62f, 0.66f, 0.85f));
+    Shader::mainShader.setUniform("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+    Shader::mainShader.setUniform("lightPosition", glm::vec3(sin(lightAngle) * lightRadius, 2.7, cos(lightAngle) * lightRadius));
+    Shader::mainShader.setUniform("ambientStregth", 0.15f);
+    Shader::mainShader.setUniform("specularStrength", 0.5f);
 
     renderer.setClearColor(0, 0, 0);
     model = glm::mat4(1.0f);
@@ -87,9 +87,9 @@ void ProjectApp::onDraw() {
     normalMat = glm::mat3x3(glm::transpose(glm::inverse(model)));
 
     Shader::mainShader.updateMVP(camera.getProjection() * camera.getView() * model);
-    Shader::mainShader.updateMat4("model", model);
-    Shader::mainShader.updateVec3("eyePosition", camera.getPosition());
-    Shader::mainShader.updateMat3("normalMat", normalMat);
+    Shader::mainShader.setUniform("model", model);
+    Shader::mainShader.setUniform("eyePosition", camera.getPosition());
+    Shader::mainShader.setUniform("normalMat", normalMat);
 
     renderer.draw(box);
 }
@@ -137,7 +137,7 @@ void ProjectApp::onUpdate(float deltaTime) {
     if (lightAngle > 6.28) {
         lightAngle -= 6.28;
     }
-    Shader::mainShader.updateVec3("lightPosition", glm::vec3(sin(lightAngle) * lightRadius, 2.7, cos(lightAngle) * lightRadius));
+    Shader::mainShader.setUniform("lightPosition", glm::vec3(sin(lightAngle) * lightRadius, 2.7, cos(lightAngle) * lightRadius));
 }
 
 void ProjectApp::onKeyPressed(int key) {
