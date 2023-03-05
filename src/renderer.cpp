@@ -15,6 +15,7 @@ void Renderer::init(int width, int height) {
 
     glViewport(0, 0, width, height);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     glGenVertexArrays(1, &vao);
