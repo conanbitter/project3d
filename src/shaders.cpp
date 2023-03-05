@@ -4,8 +4,6 @@
 #include <fstream>
 #include <glm/gtc/type_ptr.hpp>
 
-Shader Shader::mainShader;
-
 std::string getShaderLog(GLuint shader) {
     if (glIsShader(shader)) {
         std::string message = "";
@@ -171,8 +169,4 @@ void Shader::setUniform(const std::string name, const glm::vec3& data) {
 void Shader::setUniform(const std::string name, float data) {
     glUseProgram(shaderId);
     glUniform1f(glGetUniformLocation(shaderId, name.c_str()), data);
-}
-
-void Shader::compileAllShaders() {
-    mainShader.LoadFromFile("..\\..\\assets\\main.vert", "..\\..\\assets\\main.frag");
 }

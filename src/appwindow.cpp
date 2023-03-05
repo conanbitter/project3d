@@ -31,8 +31,6 @@ AppWindow::AppWindow(const std::string title, int width, int height) {
 
     renderer.init(windowWidth, windowHeight);
     renderer.setClearColor(69, 90, 100);
-
-    Shader::compileAllShaders();
 }
 
 AppWindow::~AppWindow() {

@@ -36,6 +36,8 @@ class ProjectApp : public AppWindow {
     int keyEsc;
     int keyReset;
 
+    Shader shader;
+
    public:
     ProjectApp();
     ~ProjectApp();
@@ -49,6 +51,7 @@ ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) 
     box = Mesh("..\\..\\assets\\teapot.mesh");
     tex.load("..\\..\\assets\\monkey_diff.jpg");
     norm.load("..\\..\\assets\\monkey_normal.png");
+    shader.LoadFromFile("..\\..\\assets\\main.vert", "..\\..\\assets\\main.frag");
 
     camera.setFOV(45.0f);
     camera.setAspectRatio(16.0f / 9.0f);
@@ -65,11 +68,11 @@ ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) 
     keyEsc = getKeyCode("Escape");
     keyReset = getKeyCode("R");
 
-    Shader::mainShader.setUniform("materialColor", glm::vec3(0.62f, 0.66f, 0.85f));
-    Shader::mainShader.setUniform("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
-    Shader::mainShader.setUniform("lightPosition", glm::vec3(sin(lightAngle) * lightRadius, 2.7, cos(lightAngle) * lightRadius));
-    Shader::mainShader.setUniform("ambientStregth", 0.15f);
-    Shader::mainShader.setUniform("specularStrength", 0.5f);
+    shader.setUniform("materialColor", glm::vec3(0.62f, 0.66f, 0.85f));
+    shader.setUniform("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+    shader.setUniform("lightPosition", glm::vec3(sin(lightAngle) * lightRadius, 2.7, cos(lightAngle) * lightRadius));
+    shader.setUniform("ambientStregth", 0.15f);
+    shader.setUniform("specularStrength", 0.5f);
 
     renderer.setClearColor(0, 0, 0);
     model = glm::mat4(1.0f);
@@ -80,16 +83,16 @@ ProjectApp::~ProjectApp() {
 }
 
 void ProjectApp::onDraw() {
-    renderer.setShader(Shader::mainShader);
+    renderer.setShader(shader);
     tex.bind(Texture::DiffuseMap);
     norm.bind(Texture::NormalMap);
 
     normalMat = glm::mat3x3(glm::transpose(glm::inverse(model)));
 
-    Shader::mainShader.updateMVP(camera.getProjection() * camera.getView() * model);
-    Shader::mainShader.setUniform("model", model);
-    Shader::mainShader.setUniform("eyePosition", camera.getPosition());
-    Shader::mainShader.setUniform("normalMat", normalMat);
+    shader.updateMVP(camera.getProjection() * camera.getView() * model);
+    shader.setUniform("model", model);
+    shader.setUniform("eyePosition", camera.getPosition());
+    shader.setUniform("normalMat", normalMat);
 
     renderer.draw(box);
 }
@@ -137,7 +140,7 @@ void ProjectApp::onUpdate(float deltaTime) {
     if (lightAngle > 6.28) {
         lightAngle -= 6.28;
     }
-    Shader::mainShader.setUniform("lightPosition", glm::vec3(sin(lightAngle) * lightRadius, 2.7, cos(lightAngle) * lightRadius));
+    shader.setUniform("lightPosition", glm::vec3(sin(lightAngle) * lightRadius, 2.7, cos(lightAngle) * lightRadius));
 }
 
 void ProjectApp::onKeyPressed(int key) {

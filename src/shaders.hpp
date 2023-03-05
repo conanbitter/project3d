@@ -41,7 +41,4 @@ class Shader {
     void setUniform(const std::string name, const glm::mat3x3& data);
     void setUniform(const std::string name, const glm::vec3& data);
     void setUniform(const std::string name, float data);
-
-    static void compileAllShaders();
-    static Shader mainShader;
 };
