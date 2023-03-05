@@ -30,7 +30,7 @@ void main() {
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
     vec3 specular =  specularStrength * spec * lightColor;
 
-    vec3 color = vec3(texture(diffuseMap, fragUV)) * (ambient + diffuse + specular);
+    vec3 color = materialColor * (ambient + diffuse + specular);//vec3(texture(diffuseMap, fragUV))
     outputColor = vec4(color, 1.0);
     //outputColor = texture(diffuse, fragUV)*texture(normal, fragUV);
 }

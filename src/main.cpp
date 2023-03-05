@@ -46,7 +46,7 @@ class ProjectApp : public AppWindow {
 };
 
 ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) {
-    box = Mesh("..\\..\\assets\\monkey.mesh");
+    box = Mesh("..\\..\\assets\\teapot.mesh");
     tex.load("..\\..\\assets\\monkey_diff.jpg");
     norm.load("..\\..\\assets\\monkey_normal.png");
 
