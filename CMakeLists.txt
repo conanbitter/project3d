@@ -19,6 +19,8 @@ add_executable(pr3d
     src/textures.cpp
     src/camera.hpp
     src/camera.cpp
+    src/debug.cpp
+    src/debug.hpp
 )
 
 target_include_directories(pr3d
