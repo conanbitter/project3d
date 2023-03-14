@@ -5,6 +5,8 @@ uniform sampler2D normalMap;
 
 in vec2 fragUV;
 in vec3 fragNorm;
+in vec3 fragTang;
+in vec3 fragBitang;
 in vec3 fragPos;
 
 uniform mat4 normalMat;
@@ -19,8 +21,15 @@ out vec4 outputColor;
 
 void main() {
     vec3 ambient = ambientStregth * lightColor;
+
+    vec3 tangentNorm = texture(normalMap, fragUV).rgb * 2.0 - 1;
     
     vec3 norm = normalize(fragNorm);
+    vec3 tang = normalize(fragTang);
+    vec3 bitang = normalize(fragBitang);
+
+    norm = tangentNorm.x*tang + tangentNorm.y*bitang + tangentNorm.z*norm;
+
     vec3 lightDir = normalize(lightPosition - fragPos);
     float diff = max(dot(norm, lightDir), 0.0);
     vec3 diffuse = diff * lightColor;
@@ -31,6 +40,7 @@ void main() {
     vec3 specular =  specularStrength * spec * lightColor;
 
     vec3 color = materialColor * (ambient + diffuse + specular);//vec3(texture(diffuseMap, fragUV))
+    //outputColor = texture(diffuseMap, fragUV)*texture(normalMap, fragUV);
     outputColor = vec4(color, 1.0);
-    //outputColor = texture(diffuse, fragUV)*texture(normal, fragUV);
+    //outputColor = texture(diffuseMap, fragUV);
 }
