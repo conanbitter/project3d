@@ -114,7 +114,7 @@ void Shader::LoadFromString(const char* vertexShaderCode, const char* fragmentSh
         std::cout << "set" << std::endl;
     }
     GLint normMap = glGetUniformLocation(shaderId, "normalMap");
-    if (diffMap >= 0) {
+    if (normMap >= 0) {
         glUniform1i(normMap, Texture::NormalMap - GL_TEXTURE0);
         std::cout << "set" << std::endl;
     }
