@@ -2,7 +2,8 @@
 
 layout(location = 0) in vec3 vertPos;
 layout(location = 1) in vec3 vertNorm;
-layout(location = 2) in vec2 vertUV;
+layout(location = 2) in vec3 vertTang;
+layout(location = 3) in vec2 vertUV;
 
 uniform mat4 mvp;
 uniform mat4 model;

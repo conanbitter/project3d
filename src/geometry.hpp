@@ -15,6 +15,7 @@ struct Vector2D {
 struct Vertex {
     Vector3D pos;
     Vector3D norm;
+    Vector3D tangent;
     Vector2D uv;
 };
 

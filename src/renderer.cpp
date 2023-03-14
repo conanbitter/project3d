@@ -7,7 +7,8 @@
 
 const GLuint VERTEX_POSITION_LOCATION = 0;
 const GLuint VERTEX_NORMAL_LOCATION = 1;
-const GLuint VERTEX_UV_LOCATION = 2;
+const GLuint VERTEX_TANGENT_LOCATION = 2;
+const GLuint VERTEX_UV_LOCATION = 3;
 
 void Renderer::init(int width, int height) {
     int version = gladLoadGL((GLADloadfunc)SDL_GL_GetProcAddress);
@@ -26,8 +27,10 @@ void Renderer::init(int width, int height) {
     glVertexAttribPointer(VERTEX_POSITION_LOCATION, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), nullptr);
     glEnableVertexAttribArray(VERTEX_NORMAL_LOCATION);
     glVertexAttribPointer(VERTEX_NORMAL_LOCATION, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void *)sizeof(Vector3D));
+    glEnableVertexAttribArray(VERTEX_TANGENT_LOCATION);
+    glVertexAttribPointer(VERTEX_TANGENT_LOCATION, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void *)(sizeof(Vector3D) * 2));
     glEnableVertexAttribArray(VERTEX_UV_LOCATION);
-    glVertexAttribPointer(VERTEX_UV_LOCATION, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void *)(sizeof(Vector3D) * 2));
+    glVertexAttribPointer(VERTEX_UV_LOCATION, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void *)(sizeof(Vector3D) * 3));
     glGenBuffers(1, &ebo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 }

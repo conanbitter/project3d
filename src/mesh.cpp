@@ -37,6 +37,7 @@ void Mesh::Load(const std::string filename) {
                 break;
 
             default:
+                file.seekg(size, std::ios_base::cur);
                 break;
         }
     }

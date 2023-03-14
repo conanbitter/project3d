@@ -48,7 +48,7 @@ class ProjectApp : public AppWindow {
 };
 
 ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) {
-    box = Mesh("..\\..\\assets\\test.mesh");
+    box = Mesh("..\\..\\assets\\monkey.mesh");
     tex.load("..\\..\\assets\\monkey_diff.jpg");
     norm.load("..\\..\\assets\\monkey_normal.png");
     shader.LoadFromFile("..\\..\\assets\\main.vert", "..\\..\\assets\\main.frag");
