@@ -27,10 +27,12 @@ void main() {
     
     vec3 norm = normalize(fragNorm);
     vec3 tang = normalize(fragTang);
-    vec3 bitang = normalize(fragBitang);
+    tang = normalize(tang - norm * dot(norm, tang));
+    vec3 bitang = cross(norm, tang);//normalize(fragBitang);
+    mat3 fragtbn = mat3(tang, bitang, norm);
 
     //norm = tangentNorm.x*tang + tangentNorm.y*bitang + tangentNorm.z*norm;
-    norm = normalize(tbn * tangentNorm);
+    norm = normalize(fragtbn * tangentNorm);
 
     vec3 lightDir = normalize(lightPosition - fragPos);
     float diff = max(dot(norm, lightDir), 0.0);
@@ -41,7 +43,7 @@ void main() {
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
     vec3 specular =  specularStrength * spec * lightColor;
 
-    vec3 color = materialColor * (ambient + diffuse + specular);//vec3(texture(diffuseMap, fragUV))
+    vec3 color = vec3(texture(diffuseMap, fragUV)) * (ambient + diffuse + specular);//materialColor
     //outputColor = texture(diffuseMap, fragUV)*texture(normalMap, fragUV);
     outputColor = vec4(color, 1.0);
     //outputColor = texture(diffuseMap, fragUV);

@@ -48,9 +48,9 @@ class ProjectApp : public AppWindow {
 };
 
 ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) {
-    box = Mesh("..\\..\\assets\\head.mesh");
-    tex.load("..\\..\\assets\\head_diff.jpg");
-    norm.load("..\\..\\assets\\head_normal.png");
+    box = Mesh("..\\..\\assets\\monkey.mesh");
+    tex.load("..\\..\\assets\\monkey_diff.jpg");
+    norm.load("..\\..\\assets\\monkey_normal.png");
     shader.LoadFromFile("..\\..\\assets\\main.vert", "..\\..\\assets\\main.frag");
 
     camera.setFOV(45.0f);
