@@ -14,6 +14,7 @@ out vec3 fragNorm;
 out vec3 fragTang;
 out vec3 fragBitang;
 out vec3 fragPos;
+out mat3 tbn;
 
 void main() {
     gl_Position = mvp * vec4(vertPos, 1.0);
@@ -21,5 +22,6 @@ void main() {
     fragNorm = normalMat * vertNorm;
     fragTang = normalMat * vertTang;
     fragBitang = cross(fragNorm, fragTang);
+    tbn = mat3(fragTang, fragBitang, fragNorm);
     fragPos = vec3(model * vec4(vertPos, 1.0));
 }

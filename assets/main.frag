@@ -8,6 +8,7 @@ in vec3 fragNorm;
 in vec3 fragTang;
 in vec3 fragBitang;
 in vec3 fragPos;
+in mat3 tbn;
 
 uniform mat4 normalMat;
 uniform vec3 lightColor;
@@ -22,13 +23,14 @@ out vec4 outputColor;
 void main() {
     vec3 ambient = ambientStregth * lightColor;
 
-    vec3 tangentNorm = texture(normalMap, fragUV).rgb * 2.0 - 1;
+    vec3 tangentNorm = texture(normalMap, fragUV).rgb * 2.0 - 1.0;
     
     vec3 norm = normalize(fragNorm);
     vec3 tang = normalize(fragTang);
     vec3 bitang = normalize(fragBitang);
 
-    norm = tangentNorm.x*tang + tangentNorm.y*bitang + tangentNorm.z*norm;
+    //norm = tangentNorm.x*tang + tangentNorm.y*bitang + tangentNorm.z*norm;
+    norm = normalize(tbn * tangentNorm);
 
     vec3 lightDir = normalize(lightPosition - fragPos);
     float diff = max(dot(norm, lightDir), 0.0);
