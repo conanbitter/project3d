@@ -1,7 +1,4 @@
-#include "renderer.hpp"
-#include "geometry.hpp"
-#include <iostream>
-#include <SDL.h>
+#include "common.hpp"
 #define GLAD_GL_IMPLEMENTATION
 #include <glad/gl.h>
 

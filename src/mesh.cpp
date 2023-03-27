@@ -1,7 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <glad/gl.h>
-#include "mesh.hpp"
+#include "common.hpp"
 
 const uint32_t VERT_SIGNATURE = 0x54524556;  // VERT
 const uint32_t TRIS_SIGNATURE = 0x53495254;  // TRIS

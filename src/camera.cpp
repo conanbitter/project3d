@@ -1,5 +1,4 @@
-#include "camera.hpp"
-#include <glm/ext.hpp>
+#include "common.hpp"
 
 const float FlyCamera::pi = glm::pi<float>();
 

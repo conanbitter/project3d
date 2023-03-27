@@ -1,6 +1,4 @@
-#include "appwindow.hpp"
-#include "shaders.hpp"
-#include <iostream>
+#include "common.hpp"
 
 void AppWindow::initSDL(const std::string& title) {
     SDL_Init(SDL_INIT_VIDEO);

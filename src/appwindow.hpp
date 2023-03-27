@@ -1,6 +1,5 @@
 #pragma once
 
-#define SDL_MAIN_HANDLED
 #include <SDL.h>
 #include <string>
 #include "renderer.hpp"

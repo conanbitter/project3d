@@ -1,8 +1,4 @@
-#include "shaders.hpp"
-#include "textures.hpp"
-#include <iostream>
-#include <fstream>
-#include <glm/gtc/type_ptr.hpp>
+#include "common.hpp"
 
 std::string getShaderLog(GLuint shader) {
     if (glIsShader(shader)) {

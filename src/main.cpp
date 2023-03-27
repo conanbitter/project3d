@@ -1,11 +1,4 @@
-#include "appwindow.hpp"
-#include "mesh.hpp"
-#include "shaders.hpp"
-#include "textures.hpp"
-#include "camera.hpp"
-#include <glm/glm.hpp>
-#include <glm/ext.hpp>
-#include <glm/gtc/epsilon.hpp>
+#include "common.hpp"
 #include <iostream>
 
 const int SCREEN_WIDTH = 1280;
