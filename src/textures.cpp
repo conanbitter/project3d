@@ -9,7 +9,7 @@ Texture::~Texture() {
     }
 }
 
-void Texture::load(std::string filename) {
+void Texture::load(const std::string filename) {
     glGenTextures(1, &handle);
     glActiveTexture(LoadMap);
     glBindTexture(GL_TEXTURE_2D, handle);
@@ -51,4 +51,10 @@ Texture& Texture::operator=(Texture&& tex) {
     tex.width = 0;
     tex.height = 0;
     return *this;
+}
+
+PTexture Texture::loadFromFile(const std::string filename) {
+    PTexture result = std::make_shared<Texture>();
+    result->load(filename);
+    return result;
 }

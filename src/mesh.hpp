@@ -2,8 +2,13 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 #include "geometry.hpp"
 #include "renderer.hpp"
+
+class Mesh;
+
+typedef std::shared_ptr<Mesh> PMesh;
 
 class Mesh {
     friend class Renderer;
@@ -16,5 +21,9 @@ class Mesh {
     Mesh(){};
     void Load(const std::string filename);
     Mesh(const std::string filename);
-    void Draw(Renderer &renderer);
+
+    Mesh(const Mesh&) = delete;
+    Mesh& operator=(const Mesh&) = delete;
+
+    static PMesh LoadFromFile(const std::string filename);
 };

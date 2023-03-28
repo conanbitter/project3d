@@ -8,9 +8,9 @@ const float MOUSE_SENCE = 0.004f;
 
 class ProjectApp : public AppWindow {
    private:
-    Mesh box;
-    Texture tex;
-    Texture norm;
+    PMesh box;
+    PTexture tex;
+    PTexture norm;
     FlyCamera camera;
     glm::mat4x4 mvp;
     glm::mat4x4 model;
@@ -41,9 +41,9 @@ class ProjectApp : public AppWindow {
 };
 
 ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) {
-    box = Mesh("..\\..\\assets\\monkey.mesh");
-    tex.load("..\\..\\assets\\monkey_diff.jpg");
-    norm.load("..\\..\\assets\\monkey_normal.png");
+    box = Mesh::LoadFromFile("..\\..\\assets\\monkey.mesh");
+    tex = Texture::loadFromFile("..\\..\\assets\\monkey_diff.jpg");
+    norm = Texture::loadFromFile("..\\..\\assets\\monkey_normal.png");
     shader.LoadFromFile("..\\..\\assets\\main.vert", "..\\..\\assets\\main.frag");
 
     camera.setFOV(45.0f);
@@ -77,8 +77,8 @@ ProjectApp::~ProjectApp() {
 
 void ProjectApp::onDraw() {
     renderer.setShader(shader);
-    tex.bind(Texture::DiffuseMap);
-    norm.bind(Texture::NormalMap);
+    tex->bind(Texture::DiffuseMap);
+    norm->bind(Texture::NormalMap);
 
     normalMat = glm::mat3x3(glm::transpose(glm::inverse(model)));
 

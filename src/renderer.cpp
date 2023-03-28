@@ -53,6 +53,15 @@ void Renderer::draw(const Mesh &mesh) {
     glDrawElements(GL_TRIANGLES, mesh.faces.size() * 3, GL_UNSIGNED_INT, NULL);
 }
 
+void Renderer::draw(PMesh mesh) {
+    glBindVertexArray(vao);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, mesh->vertices.size() * sizeof(Vertex), mesh->vertices.data(), GL_DYNAMIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh->faces.size() * sizeof(Triangle), mesh->faces.data(), GL_DYNAMIC_DRAW);
+    glDrawElements(GL_TRIANGLES, mesh->faces.size() * 3, GL_UNSIGNED_INT, NULL);
+}
+
 void Renderer::present() {}
 
 void Renderer::setClearColor(uint8_t r, uint8_t g, uint8_t b) {

@@ -7,6 +7,7 @@
 #include "shaders.hpp"
 
 class Mesh;
+typedef std::shared_ptr<Mesh> PMesh;
 
 class Renderer {
    private:
@@ -25,6 +26,7 @@ class Renderer {
     void init(int width, int height);
     void setShader(const Shader& shader);
     void draw(const Mesh& mesh);
+    void draw(PMesh mesh);
     void present();
     void setClearColor(uint8_t r, uint8_t g, uint8_t b);
     void clear();

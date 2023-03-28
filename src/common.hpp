@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <memory>
 #include <SDL.h>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>

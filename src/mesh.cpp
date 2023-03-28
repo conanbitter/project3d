@@ -43,4 +43,6 @@ Mesh::Mesh(const std::string filename) {
     Load(filename);
 }
 
-void Mesh::Draw(Renderer &renderer) {}
+PMesh Mesh::LoadFromFile(const std::string filename) {
+    return std::make_shared<Mesh>(filename);
+}

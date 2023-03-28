@@ -2,6 +2,10 @@
 
 #include <glad/gl.h>
 #include <string>
+#include <memory>
+
+class Texture;
+typedef std::shared_ptr<Texture> PTexture;
 
 class Texture {
    private:
@@ -16,7 +20,7 @@ class Texture {
 
     Texture() : width{0}, height{0} {};
     ~Texture();
-    void load(std::string filename);
+    void load(const std::string filename);
     void bind(GLenum map);
     void getSize(int& w, int& h) {
         w = width;
@@ -27,4 +31,6 @@ class Texture {
     Texture& operator=(const Texture& prog) = delete;
     Texture(Texture&& prog);
     Texture& operator=(Texture&& prog);
+
+    static PTexture loadFromFile(const std::string filename);
 };
