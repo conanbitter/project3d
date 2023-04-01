@@ -5,12 +5,14 @@
 
 Texture::~Texture() {
     if (glIsTexture(handle)) {
+        std::cout << "Texture " << handle << " created" << std::endl;
         glDeleteTextures(1, &handle);
     }
 }
 
 void Texture::load(const std::string filename) {
     glGenTextures(1, &handle);
+    std::cout << "Texture " << handle << " created" << std::endl;
     glActiveTexture(LoadMap);
     glBindTexture(GL_TEXTURE_2D, handle);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);

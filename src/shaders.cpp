@@ -107,14 +107,15 @@ void Shader::LoadFromString(const char* vertexShaderCode, const char* fragmentSh
     GLint diffMap = glGetUniformLocation(shaderId, "diffuseMap");
     if (diffMap >= 0) {
         glUniform1i(diffMap, Texture::DiffuseMap - GL_TEXTURE0);
-        std::cout << "set" << std::endl;
+        // std::cout << "set" << std::endl;
     }
     GLint normMap = glGetUniformLocation(shaderId, "normalMap");
     if (normMap >= 0) {
         glUniform1i(normMap, Texture::NormalMap - GL_TEXTURE0);
-        std::cout << "set" << std::endl;
+        // std::cout << "set" << std::endl;
     }
-    std::cout << mvp << " " << diffMap << " " << normMap << std::endl;
+    // std::cout << mvp << " " << diffMap << " " << normMap << std::endl;
+    std::cout << "Shader " << shaderId << " created" << std::endl;
 }
 
 void Shader::LoadFromFile(const char* vertexShaderFile, const char* fragmentShaderFile) {
@@ -127,6 +128,7 @@ void Shader::LoadFromFile(const char* vertexShaderFile, const char* fragmentShad
 
 Shader::~Shader() {
     if (glIsProgram(shaderId)) {
+        std::cout << "Shader " << shaderId << " deleted" << std::endl;
         glDeleteProgram(shaderId);
     }
 }

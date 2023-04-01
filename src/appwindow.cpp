@@ -16,6 +16,7 @@ void AppWindow::initSDL(const std::string& title) {
                               SDL_WINDOW_OPENGL);
 
     context = SDL_GL_CreateContext(window);
+    std::cout << "OpenGL created" << std::endl;
 
     keyboardState = SDL_GetKeyboardState(nullptr);
 }
@@ -33,6 +34,7 @@ AppWindow::AppWindow(const std::string title, int width, int height) {
 
 AppWindow::~AppWindow() {
     if (context) {
+        std::cout << "OpenGL deleted" << std::endl;
         SDL_GL_DeleteContext(context);
     }
     if (window) {

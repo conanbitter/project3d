@@ -21,14 +21,14 @@ void Mesh::Load(const std::string filename) {
         switch (signature) {
             case VERT_SIGNATURE:
                 file.read((char *)&count, 4);
-                std::cout << "Vertices :" << count << std::endl;
+                // std::cout << "Vertices :" << count << std::endl;
                 vertices.resize(count);
                 file.read((char *)vertices.data(), sizeof(Vertex) * count);
                 break;
 
             case TRIS_SIGNATURE:
                 file.read((char *)&count, 4);
-                std::cout << "Faces :" << count << std::endl;
+                // std::cout << "Faces :" << count << std::endl;
                 faces.resize(count);
                 file.read((char *)faces.data(), sizeof(Triangle) * count);
                 break;
@@ -39,6 +39,7 @@ void Mesh::Load(const std::string filename) {
         }
     }
 }
+
 Mesh::Mesh(const std::string filename) {
     Load(filename);
 }
