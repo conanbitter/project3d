@@ -118,12 +118,14 @@ void Shader::LoadFromString(const char* vertexShaderCode, const char* fragmentSh
     std::cout << "Shader " << shaderId << " created" << std::endl;
 }
 
-void Shader::LoadFromFile(const char* vertexShaderFile, const char* fragmentShaderFile) {
+PShader Shader::LoadFromFile(const char* vertexShaderFile, const char* fragmentShaderFile) {
     char* vertCode = readFile(vertexShaderFile);
     char* fragCode = readFile(fragmentShaderFile);
-    LoadFromString(vertCode, fragCode);
+    PShader result = std::make_shared<Shader>();
+    result->LoadFromString(vertCode, fragCode);
     delete fragCode;
     delete vertCode;
+    return result;
 }
 
 Shader::~Shader() {

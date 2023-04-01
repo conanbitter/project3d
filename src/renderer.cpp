@@ -72,6 +72,6 @@ void Renderer::clear() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Renderer::setShader(const Shader &shader) {
-    glUseProgram(shader.getId());
+void Renderer::setShader(PShader shader) {
+    glUseProgram(shader->getId());
 }

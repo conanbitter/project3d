@@ -24,7 +24,7 @@ class Renderer {
     Renderer() = default;
     ~Renderer();
     void init(int width, int height);
-    void setShader(const Shader& shader);
+    void setShader(PShader shader);
     void draw(const Mesh& mesh);
     void draw(PMesh mesh);
     void present();

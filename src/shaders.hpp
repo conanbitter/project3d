@@ -4,6 +4,10 @@
 #include <string>
 #include <glm/glm.hpp>
 
+class Shader;
+
+typedef std::shared_ptr<Shader> PShader;
+
 class Shader {
    private:
     GLuint shaderId;
@@ -30,7 +34,7 @@ class Shader {
     ~Shader();
 
     void LoadFromString(const char* vertexShaderCode, const char* fragmentShaderCode);
-    void LoadFromFile(const char* vertexShaderFile, const char* fragmentShaderFile);
+    static PShader LoadFromFile(const char* vertexShaderFile, const char* fragmentShaderFile);
     GLuint getId() const { return shaderId; }
 
     int getUniformId(const std::string name);
