@@ -42,8 +42,8 @@ class ProjectApp : public AppWindow {
 
 ProjectApp::ProjectApp() : AppWindow("Project 3D", SCREEN_WIDTH, SCREEN_HEIGHT) {
     box = Mesh::LoadFromFile("..\\..\\assets\\monkey.mesh");
-    tex = Texture::loadFromFile("..\\..\\assets\\monkey_diff.jpg");
-    norm = Texture::loadFromFile("..\\..\\assets\\monkey_normal.png");
+    tex = Texture::LoadFromFile("..\\..\\assets\\monkey_diff.jpg");
+    norm = Texture::LoadFromFile("..\\..\\assets\\monkey_normal.png");
     shader = Shader::LoadFromFile("..\\..\\assets\\main.vert", "..\\..\\assets\\main.frag");
 
     camera.setFOV(45.0f);

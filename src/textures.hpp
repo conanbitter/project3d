@@ -32,5 +32,5 @@ class Texture {
     Texture(Texture&& prog);
     Texture& operator=(Texture&& prog);
 
-    static PTexture loadFromFile(const std::string filename);
+    static PTexture LoadFromFile(const std::string filename);
 };

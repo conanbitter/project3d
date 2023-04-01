@@ -3,7 +3,7 @@
 const uint32_t VERT_SIGNATURE = 0x54524556;  // VERT
 const uint32_t TRIS_SIGNATURE = 0x53495254;  // TRIS
 
-void Mesh::Load(const std::string filename) {
+void Mesh::load(const std::string filename) {
     std::ifstream file(filename, std::ios::in | std::ios::binary);
     if (!file.is_open()) {
         std::cout << "Wrong File" << std::endl;
@@ -41,7 +41,7 @@ void Mesh::Load(const std::string filename) {
 }
 
 Mesh::Mesh(const std::string filename) {
-    Load(filename);
+    load(filename);
 }
 
 PMesh Mesh::LoadFromFile(const std::string filename) {

@@ -55,7 +55,7 @@ Texture& Texture::operator=(Texture&& tex) {
     return *this;
 }
 
-PTexture Texture::loadFromFile(const std::string filename) {
+PTexture Texture::LoadFromFile(const std::string filename) {
     PTexture result = std::make_shared<Texture>();
     result->load(filename);
     return result;

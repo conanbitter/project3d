@@ -19,7 +19,7 @@ class Mesh {
 
    public:
     Mesh(){};
-    void Load(const std::string filename);
+    void load(const std::string filename);
     Mesh(const std::string filename);
 
     Mesh(const Mesh&) = delete;

@@ -33,7 +33,7 @@ class Shader {
     }
     ~Shader();
 
-    void LoadFromString(const char* vertexShaderCode, const char* fragmentShaderCode);
+    void loadFromString(const char* vertexShaderCode, const char* fragmentShaderCode);
     static PShader LoadFromFile(const char* vertexShaderFile, const char* fragmentShaderFile);
     GLuint getId() const { return shaderId; }
 

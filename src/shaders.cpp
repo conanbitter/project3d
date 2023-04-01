@@ -100,7 +100,7 @@ char* readFile(const char* filename) {
     return result;
 }
 
-void Shader::LoadFromString(const char* vertexShaderCode, const char* fragmentShaderCode) {
+void Shader::loadFromString(const char* vertexShaderCode, const char* fragmentShaderCode) {
     shaderId = compileShaderProgram(vertexShaderCode, fragmentShaderCode);
     glUseProgram(shaderId);
     mvp = glGetUniformLocation(shaderId, "mvp");
@@ -122,7 +122,7 @@ PShader Shader::LoadFromFile(const char* vertexShaderFile, const char* fragmentS
     char* vertCode = readFile(vertexShaderFile);
     char* fragCode = readFile(fragmentShaderFile);
     PShader result = std::make_shared<Shader>();
-    result->LoadFromString(vertCode, fragCode);
+    result->loadFromString(vertCode, fragCode);
     delete fragCode;
     delete vertCode;
     return result;
